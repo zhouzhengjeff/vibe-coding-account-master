@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日常记账App - 登录注册</title>
+<style>
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --fg: #111111;
+  --fg-2: var(--fg);
+  --muted: #6b6b6b;
+  --meta: var(--muted);
+  --border: #e5e5e5;
+  --border-soft: var(--border);
+  --accent: #2f6feb;
+  --accent-on: #ffffff;
+  --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+  --accent-active: color-mix(in oklab, var(--accent), black 14%);
+  --success: #17a34a;
+  --warn: #eab308;
+  --danger: #dc2626;
+  --font-display: "Inter", -apple-system, system-ui, sans-serif;
+  --font-body: "Inter", -apple-system, system-ui, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", monospace;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --leading-body: 1.5;
+  --tracking-display: -0.01em;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+  --focus-ring: 0 0 0 3px color-mix(in oklab, var(--accent), transparent 70%);
+  --motion-fast: 150ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: var(--text-base); -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--fg);
+  background: var(--bg);
+}
+button { font: inherit; color: inherit; cursor: pointer; border: none; background: none; }
+input { font: inherit; }
+a { color: var(--accent); text-decoration: none; }
+
+/* Login Page */
+.login-page {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; background: var(--bg); padding: var(--space-6);
+}
+.login-card {
+  width: 100%; max-width: 400px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: var(--space-8);
+  position: relative;
+}
+.login-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 60%, var(--success)));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.login-header { text-align: center; margin-bottom: var(--space-8); }
+.login-logo { font-size: 40px; margin-bottom: var(--space-3); }
+.login-title { font-size: var(--text-2xl); font-weight: 600; letter-spacing: var(--tracking-display); }
+.login-subtitle { color: var(--muted); font-size: var(--text-sm); margin-top: var(--space-2); }
+.login-tabs {
+  display: flex; border-bottom: 1px solid var(--border); margin-bottom: var(--space-6);
+}
+.login-tab {
+  flex: 1; padding: var(--space-3) 0; text-align: center;
+  font-size: var(--text-sm); font-weight: 500;
+  color: var(--muted); border: none; background: none; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard);
+}
+.login-tab.active { color: var(--fg); border-bottom-color: var(--accent); }
+.field { display: flex; flex-direction: column; gap: var(--space-2); }
+.field label { font-size: var(--text-sm); font-weight: 500; color: var(--fg); }
+.field input {
+  padding: 10px var(--space-3);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: var(--text-base); background: var(--surface);
+  transition: border-color var(--motion-fast) var(--ease-standard), box-shadow var(--motion-fast) var(--ease-standard);
+  outline: none; width: 100%;
+}
+.field input:focus { border-color: var(--accent); box-shadow: var(--focus-ring); }
+.field input::placeholder { color: var(--muted); opacity: 0.6; }
+.field-error { font-size: var(--text-xs); color: var(--danger); }
+.phone-input-group { display: flex; gap: var(--space-3); }
+.phone-prefix { width: 80px; text-align: center; background: var(--bg); }
+.phone-code-btn {
+  padding: 10px var(--space-3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: var(--text-sm);
+  color: var(--accent); white-space: nowrap;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+.phone-code-btn:hover:not(:disabled) { background: color-mix(in oklab, var(--accent) 5%, transparent); }
+.phone-code-btn:disabled { color: var(--muted); cursor: not-allowed; }
+.agreement-check {
+  display: flex; align-items: flex-start; gap: var(--space-2);
+  font-size: var(--text-xs); color: var(--muted); margin-top: var(--space-4);
+}
+.agreement-check input[type="checkbox"] { margin-top: 2px; accent-color: var(--accent); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px var(--space-5); border-radius: var(--radius-sm);
+  font-size: var(--text-sm); font-weight: 500;
+  transition: background var(--motion-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: var(--accent-on); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-primary:active { background: var(--accent-active); }
+.btn-block { width: 100%; }
+.guest-link {
+  display: block; text-align: center; margin-top: var(--space-4);
+  font-size: var(--text-sm); color: var(--muted); cursor: pointer;
+  border: none; background: none; width: 100%;
+}
+.guest-link:hover { color: var(--accent); }
+.stack-4 > * + * { margin-top: var(--space-4); }
+</style>
+</head>
+<body>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-logo">📒</div>
+      <div class="login-title">日常记账</div>
+      <div class="login-subtitle">简洁高效的个人收支管理</div>
+    </div>
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="switchLoginTab(this, 'login')">登录</button>
+      <button class="login-tab" onclick="switchLoginTab(this, 'register')">注册</button>
+    </div>
+    <div class="stack-4">
+      <div class="field">
+        <label for="phone-input">手机号</label>
+        <div class="phone-input-group">
+          <input type="text" class="phone-prefix" value="+86" readonly>
+          <input type="tel" id="phone-input" placeholder="请输入11位手机号" maxlength="11">
+        </div>
+        <div class="field-error" id="phone-error"></div>
+      </div>
+      <div class="field">
+        <label for="code-input">验证码</label>
+        <div class="phone-input-group">
+          <input type="text" id="code-input" placeholder="请输入6位验证码" maxlength="6">
+          <button class="phone-code-btn" id="send-code-btn" onclick="sendCode()">获取验证码</button>
+        </div>
+      </div>
+      <div class="agreement-check">
+        <input type="checkbox" id="agreement" checked>
+        <label for="agreement">我已阅读并同意 <a href="#">《用户协议》</a>和<a href="#">《隐私政策》</a></label>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="handleLogin()" style="padding: 14px 0;">登录 / 注册</button>
+      <button class="guest-link" onclick="alert('进入游客模式')">暂不登录，先逛逛</button>
+    </div>
+  </div>
+</div>
+<script>
+function switchLoginTab(btn, type) {
+  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  btn.textContent = type === 'login' ? '登录' : '注册';
+}
+function sendCode() {
+  const phone = document.getElementById('phone-input').value.trim();
+  if (!/^1\d{10}$/.test(phone)) {
+    document.getElementById('phone-error').textContent = '请输入正确的11位手机号';
+    return;
+  }
+  document.getElementById('phone-error').textContent = '';
+  const btn = document.getElementById('send-code-btn');
+  let sec = 60;
+  btn.disabled = true;
+  btn.textContent = sec + 's';
+  const timer = setInterval(() => {
+    sec--;
+    btn.textContent = sec + 's';
+    if (sec <= 0) { clearInterval(timer); btn.disabled = false; btn.textContent = '获取验证码'; }
+  }, 1000);
+}
+function handleLogin() {
+  const phone = document.getElementById('phone-input').value.trim();
+  const code = document.getElementById('code-input').value.trim();
+  const agreed = document.getElementById('agreement').checked;
+  if (!/^1\d{10}$/.test(phone)) { document.getElementById('phone-error').textContent = '请输入正确的11位手机号'; return; }
+  if (code.length !== 6) { alert('请输入6位验证码'); return; }
+  if (!agreed) { alert('请先同意用户协议和隐私政策'); return; }
+  alert('登录成功！');
+}
+</script>
+</body>
+</html>

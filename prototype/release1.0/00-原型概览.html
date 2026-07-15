@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日常记账App - 原型概览</title>
+<style>
+:root {
+  --bg: #fafafa; --surface: #ffffff; --fg: #111111; --muted: #6b6b6b;
+  --border: #e5e5e5; --accent: #2f6feb; --accent-on: #ffffff;
+  --success: #17a34a; --danger: #dc2626;
+  --font-body: "Inter", -apple-system, system-ui, sans-serif;
+  --text-sm: 14px; --text-base: 16px; --text-lg: 20px; --text-xl: 24px; --text-2xl: 32px;
+  --text-3xl: 48px;
+  --leading-body: 1.5; --tracking-display: -0.01em;
+  --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-12: 48px;
+  --radius-md: 12px; --radius-lg: 16px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: var(--text-base); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-body); color: var(--fg); background: var(--bg); }
+a { color: var(--accent); text-decoration: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.hero { text-align: center; padding: var(--space-12) 0 var(--space-8); }
+.hero h1 { font-size: var(--text-3xl); font-weight: 600; letter-spacing: var(--tracking-display); margin-bottom: var(--space-4); }
+.hero p { font-size: var(--text-lg); color: var(--muted); max-width: 600px; margin: 0 auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); padding: 0 0 var(--space-12); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-6); transition: border-color 150ms ease; }
+.card:hover { border-color: var(--accent); }
+.card-icon { font-size: 32px; margin-bottom: var(--space-4); }
+.card h3 { font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-3); }
+.card p { font-size: var(--text-sm); color: var(--muted); margin-bottom: var(--space-5); line-height: 1.6; }
+.card-link { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); font-weight: 500; color: var(--accent); }
+.card-link::after { content: '→'; transition: transform 150ms ease; }
+.card-link:hover::after { transform: translateX(4px); }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-5); padding: var(--space-8) 0; }
+.feature { text-align: center; padding: var(--space-5); }
+.feature-icon { font-size: 28px; margin-bottom: var(--space-3); }
+.feature h4 { font-size: var(--text-sm); font-weight: 600; margin-bottom: var(--space-2); }
+.feature p { font-size: var(--text-xs); color: var(--muted); }
+footer { text-align: center; padding: var(--space-8) 0; border-top: 1px solid var(--border); color: var(--muted); font-size: var(--text-sm); }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="container">
+    <h1>📒 日常记账App 原型</h1>
+    <p>基于 PRD v1.0 的高保真 UI 原型，包含 5 个核心页面，覆盖登录注册、交易管理、统计分析和个人中心。</p>
+  </div>
+</div>
+<div class="container">
+  <div class="features">
+    <div class="feature"><div class="feature-icon">🔐</div><h4>用户认证</h4><p>手机号验证码登录/注册，支持游客模式</p></div>
+    <div class="feature"><div class="feature-icon">📋</div><h4>交易管理</h4><p>快速录入、分类管理、筛选搜索</p></div>
+    <div class="feature"><div class="feature-icon">📊</div><h4>周报表</h4><p>每日支出趋势、分类占比、环比分析</p></div>
+    <div class="feature"><div class="feature-icon">📈</div><h4>月报表</h4><p>月度趋势、分类排行、预算进度、消费洞察</p></div>
+    <div class="feature"><div class="feature-icon">👤</div><h4>个人中心</h4><p>账户设置、偏好配置、数据管理</p></div>
+  </div>
+</div>
+<div class="container">
+  <h2 style="font-size:var(--text-2xl);font-weight:600;text-align:center;margin-bottom:var(--space-8);letter-spacing:var(--tracking-display);">核心页面</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <h3>登录注册</h3>
+      <p>手机号 + 验证码登录/注册页面，支持登录/注册 Tab 切换、60 秒验证码倒计时、用户协议勾选、游客模式入口。</p>
+      <a href="01-登录注册.html" class="card-link">预览原型</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏠</div>
+      <h3>首页与快速录入</h3>
+      <p>月度收支汇总卡片、交易列表（按日期分组）、搜索与筛选、快速录入页（数字键盘 + 分类选择 + 备注/支付方式）。</p>
+      <a href="02-首页与快速录入.html" class="card-link">预览原型</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>周报表</h3>
+      <p>本周收支汇总、每日支出趋势折线图、支出分类占比饼图、收入来源分布饼图、消费洞察与环比变化。</p>
+      <a href="03-周报表.html" class="card-link">预览原型</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">📈</div>
+      <h3>月报表</h3>
+      <p>月度收支汇总与上月对比、月度支出趋势柱状图、分类排行条形图、预算执行进度条、消费习惯分析。</p>
+      <a href="04-月报表.html" class="card-link">预览原型</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">👤</div>
+      <h3>个人中心</h3>
+      <p>用户信息展示、账户管理（编辑资料/账号安全）、偏好设置（深色模式/货币单位/每周起始日）、数据管理、关于。</p>
+      <a href="05-个人中心.html" class="card-link">预览原型</a>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <p>日常记账App · 高保真 UI 原型 · 基于 PRD v1.0 · Neutral Modern 设计系统</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日常记账App - 个人中心</title>
+<style>
+:root {
+  --bg: #fafafa; --surface: #ffffff; --fg: #111111; --muted: #6b6b6b;
+  --border: #e5e5e5; --border-soft: var(--border);
+  --accent: #2f6feb; --accent-on: #ffffff;
+  --success: #17a34a; --warn: #eab308; --danger: #dc2626;
+  --font-display: "Inter", -apple-system, system-ui, sans-serif;
+  --font-body: "Inter", -apple-system, system-ui, sans-serif;
+  --text-xs: 12px; --text-sm: 14px; --text-base: 16px; --text-lg: 20px; --text-xl: 24px; --text-2xl: 32px;
+  --leading-body: 1.5; --tracking-display: -0.01em;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px;
+  --space-6: 24px; --space-8: 32px;
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-pill: 9999px;
+  --motion-fast: 150ms; --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --container-gutter-desktop: 24px; --container-gutter-phone: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: var(--text-base); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-body); color: var(--fg); background: var(--bg); }
+button { font: inherit; color: inherit; cursor: pointer; border: none; background: none; }
+.page-header { margin-bottom: var(--space-6); padding: 0 var(--container-gutter-desktop); }
+.page-title { font-size: var(--text-2xl); font-weight: 600; letter-spacing: var(--tracking-display); }
+.profile-header { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-6) var(--container-gutter-desktop); margin-bottom: var(--space-6); }
+.profile-avatar-lg { width: 64px; height: 64px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.profile-name { font-size: var(--text-xl); font-weight: 600; }
+.profile-phone { font-size: var(--text-sm); color: var(--muted); }
+.settings-group { margin-bottom: var(--space-6); }
+.settings-group-title { font-size: var(--text-xs); font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; padding: var(--space-3) var(--container-gutter-desktop); }
+.settings-item { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4) var(--container-gutter-desktop); background: var(--surface); cursor: pointer; transition: background var(--motion-fast) var(--ease-standard); }
+.settings-item + .settings-item { border-top: 1px solid var(--border-soft); }
+.settings-item:first-child { border-top: none; }
+.settings-item:hover { background: color-mix(in oklab, var(--fg) 2%, transparent); }
+.settings-label { font-size: var(--text-sm); }
+.settings-arrow { color: var(--muted); font-size: var(--text-sm); }
+.toggle { width: 44px; height: 24px; border-radius: var(--radius-pill); background: var(--border); position: relative; cursor: pointer; transition: background var(--motion-fast) var(--ease-standard); }
+.toggle.on { background: var(--accent); }
+.toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.15); transition: transform var(--motion-fast) var(--ease-standard); }
+.toggle.on::after { transform: translateX(20px); }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px var(--space-5); border-radius: var(--radius-sm); font-size: var(--text-sm); font-weight: 500; transition: background var(--motion-fast) var(--ease-standard); white-space: nowrap; }
+.btn-secondary { border: 1px solid var(--border); background: var(--surface); }
+.btn-secondary:hover { border-color: var(--muted); }
+.btn-block { width: 100%; }
+
+@media (max-width: 639px) {
+  .page-header { padding: 0 var(--container-gutter-phone); }
+  .profile-header { padding: var(--space-4) var(--container-gutter-phone); }
+  .settings-item, .settings-group-title { padding-left: var(--container-gutter-phone); padding-right: var(--container-gutter-phone); }
+}
+</style>
+</head>
+<body>
+<div class="page-header"><div class="page-title">个人中心</div></div>
+<div class="profile-header">
+  <div class="profile-avatar-lg">👤</div>
+  <div><div class="profile-name">周先生</div><div class="profile-phone">138****8888</div></div>
+</div>
+<div class="settings-group">
+  <div class="settings-group-title">账户</div>
+  <div class="settings-item"><span class="settings-label">编辑资料</span><span class="settings-arrow">›</span></div>
+  <div class="settings-item"><span class="settings-label">账号与安全</span><span class="settings-arrow">›</span></div>
+</div>
+<div class="settings-group">
+  <div class="settings-group-title">偏好设置</div>
+  <div class="settings-item"><span class="settings-label">深色模式</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+  <div class="settings-item"><span class="settings-label">货币单位</span><span class="settings-arrow">CNY ¥ ›</span></div>
+  <div class="settings-item"><span class="settings-label">每周起始日</span><span class="settings-arrow">星期一 ›</span></div>
+</div>
+<div class="settings-group">
+  <div class="settings-group-title">数据管理</div>
+  <div class="settings-item"><span class="settings-label">导出数据（CSV）</span><span class="settings-arrow">›</span></div>
+  <div class="settings-item"><span class="settings-label">清除缓存</span><span class="settings-arrow">2.4 MB ›</span></div>
+</div>
+<div class="settings-group">
+  <div class="settings-group-title">关于</div>
+  <div class="settings-item"><span class="settings-label">版本信息</span><span class="settings-arrow">v1.0.0</span></div>
+  <div class="settings-item"><span class="settings-label">用户协议</span><span class="settings-arrow">›</span></div>
+  <div class="settings-item"><span class="settings-label">隐私政策</span><span class="settings-arrow">›</span></div>
+</div>
+<div style="padding:0 var(--container-gutter-desktop);margin-top:var(--space-8);">
+  <button class="btn btn-secondary btn-block" style="color:var(--danger);border-color:var(--danger);">退出登录</button>
+</div>
+</body>
+</html>
